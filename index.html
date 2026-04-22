@@ -12,82 +12,93 @@
         body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; font-weight: 300; }
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
         
-        /* 簡介區 */
-        header { display: grid; grid-template-columns: 260px 1fr; gap: 50px; margin-bottom: 60px; }
-        .profile-side { text-align: center; }
-        .profile-pic { width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: #eee; }
-        .btn-cv { display: inline-block; margin-top: 20px; padding: 8px 20px; border: 1px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-size: 0.8rem; }
-        .btn-cv:hover { background: var(--accent-color); color: white; }
+        /* 簡介區改為垂直排列以容納大型 PDF 預覽 */
+        header { display: flex; flex-direction: column; gap: 40px; margin-bottom: 60px; }
+        
+        .profile-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
 
-        .section-title { border-left: 2px solid var(--accent-color); padding-left: 15px; margin: 40px 0 20px 0; font-weight: 400; }
+        /* PDF 嵌入容器 */
+        .pdf-viewer {
+            width: 100%; height: 600px; border: 1px solid #ddd; border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: white;
+        }
+
+        .intro-text h1 { font-size: 2rem; margin: 0 0 10px 0; font-weight: 400; letter-spacing: 5px; }
+        .intro-text .name-en { font-size: 0.9rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+        .section-title { border-left: 2px solid var(--accent-color); padding-left: 15px; margin: 40px 0 25px 0; font-weight: 400; font-size: 1.2rem; }
 
         /* 作品網格 */
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .work-card { background: var(--card-bg); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
-        .work-media { width: 100%; height: 220px; background: #000; }
+        .work-card { background: var(--card-bg); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: 0.3s; }
+        .work-card:hover { transform: translateY(-5px); }
+        .work-media { width: 100%; height: 240px; background: #000; overflow: hidden; }
         .work-media video, .work-media img { width: 100%; height: 100%; object-fit: cover; }
-        .work-info { padding: 15px; }
-        .work-tag { color: var(--accent-color); font-size: 0.7rem; font-weight: 700; }
+        .work-info { padding: 15px; border-top: 1px solid #f0f0f0; }
+        .work-tag { color: var(--accent-color); font-size: 0.75rem; font-weight: 700; }
+
+        @media (max-width: 900px) {
+            .profile-container { grid-template-columns: 1fr; }
+            .pdf-viewer { height: 500px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <div class="profile-side">
-            <div class="profile-pic" style="height: 300px; display: flex; align-items: center; justify-content: center; background: #e0e0e0; color: #999;">
-                Profile Image
+        <div class="profile-container">
+            <div class="pdf-viewer-box">
+                <h3 class="section-title" style="margin-top:0;">RESUME PREVIEW</h3>
+                <iframe src="profile 202510.pdf" class="pdf-viewer"></iframe>
             </div>
-            <h1 style="font-size: 1.6rem; margin: 15px 0 5px 0;">何 語 菲</h1>
-            <a href="profile.202510.pdf" target="_blank" class="btn-cv">VIEW RESUME PDF</a>
-        </div>
-        <div class="intro-text">
-            <h3 class="section-title" style="margin-top:0;">ABOUT ME</h3>
-            <p>我畢業於設計相關科系，對平面設計與品牌行銷有高度興趣... (後略)</p>
+
+            <div class="intro-text">
+                <h1 class="name-ch">何 語 菲</h1>
+                <p class="name-en">YU-FEI HE</p>
+                
+                <h3 class="section-title">ABOUT ME</h3>
+                <p>我畢業於設計相關科系，對平面設計與品牌行銷有高度興趣... (後略)</p>
+                <p>希望透過作品集，讓您看到我多元的專業能力與創意實力。</p>
+                
+                <a href="profile 202510.pdf" target="_blank" style="color: var(--accent-color); text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid;">在新視窗打開完整 PDF 檔案 ↗</a>
+            </div>
         </div>
     </header>
 
-    <h2 class="section-title">VIDEO WORKS</h2>
-    <div class="portfolio-grid" id="video-gallery"></div>
-
-    <h2 class="section-title">ANIMATION WORKS</h2>
-    <div class="portfolio-grid" id="anim-gallery"></div>
+    <h2 class="section-title">PORTFOLIO 作品展示</h2>
+    <div class="portfolio-grid" id="main-gallery"></div>
 </div>
 
 <script>
-    // 處理影片：處理「空格」與「括號」
-    const videoGallery = document.getElementById('video-gallery');
-    for (let i = 1; i <= 5; i++) {
-        const fileName = `video (${i}).mp4`; // 這裡必須與 GitHub 上的名字完全一樣
-        videoGallery.innerHTML += `
-            <div class="work-card">
-                <div class="work-media">
-                    <video controls muted loop playsinline>
-                        <source src="${encodeURI(fileName)}" type="video/mp4">
-                    </video>
-                </div>
-                <div class="work-info">
-                    <span class="work-tag">VIDEO ${i}</span>
-                </div>
-            </div>
-        `;
-    }
+    const gallery = document.getElementById('main-gallery');
+    // 定義你提到的所有正確檔案
+    const files = [
+        { name: 'video (1).mp4', type: 'video', tag: 'VIDEO 01' },
+        { name: 'video (2).mp4', type: 'video', tag: 'VIDEO 02' },
+        { name: 'video (3).mp4', type: 'video', tag: 'VIDEO 03' },
+        { name: 'video (4).mp4', type: 'video', tag: 'VIDEO 04' },
+        { name: 'video (5).mp4', type: 'video', tag: 'VIDEO 05' },
+        { name: 'Animation (1).mp4', type: 'video', tag: 'MOTION MP4' },
+        { name: 'Animation (2).mp4', type: 'video', tag: 'MOTION MP4' },
+        { name: 'Animation (1).gif', type: 'image', tag: 'ANIMATION GIF' },
+        { name: 'Animation (2).gif', type: 'image', tag: 'ANIMATION GIF' }
+    ];
 
-    // 處理動畫：Animation.1.gif ~ Animation.4.gif
-    const animGallery = document.getElementById('anim-gallery');
-    for (let i = 1; i <= 4; i++) {
-        const fileName = `Animation.${i}.gif`;
-        animGallery.innerHTML += `
+    files.forEach(file => {
+        const safePath = encodeURI(file.name);
+        let mediaHtml = file.type === 'video' 
+            ? `<video controls muted loop playsinline><source src="${safePath}" type="video/mp4"></video>`
+            : `<img src="${safePath}" alt="${file.name}">`;
+
+        gallery.innerHTML += `
             <div class="work-card">
-                <div class="work-media">
-                    <img src="${fileName}" alt="Animation ${i}" onerror="this.parentElement.innerHTML='<div style=padding:20px;color:red;font-size:12px;>找不到檔案: ${fileName}</div>'">
-                </div>
+                <div class="work-media">${mediaHtml}</div>
                 <div class="work-info">
-                    <span class="work-tag">ANIMATION ${i}</span>
+                    <span class="work-tag">${file.tag}</span>
                 </div>
             </div>
         `;
-    }
+    });
 </script>
 
 </body>
