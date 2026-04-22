@@ -3,38 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>何語菲 YU-FEI HE Portfolio</title>
+    <title>何語菲 YU-FEI HE | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #f5f1ea; --text-color: #3e3e3e; --accent-color: #cb9b66; --card-bg: #ffffff;
-        }
+        :root { --bg-color: #f5f1ea; --text-color: #3e3e3e; --accent-color: #cb9b66; --card-bg: #ffffff; }
         body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; line-height: 1.8; }
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-        
         header { display: grid; grid-template-columns: 280px 1fr; gap: 50px; margin-bottom: 60px; align-items: start; }
         .profile-side { text-align: center; }
         .profile-pic { width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .name-ch { font-size: 1.8rem; margin: 20px 0 5px 0; letter-spacing: 5px; }
         .name-en { font-size: 0.9rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-        
         .intro-text p { margin-bottom: 20px; text-align: justify; }
         .section-title { border-left: 2px solid var(--accent-color); padding-left: 15px; margin: 40px 0 20px 0; font-weight: 400; }
-
-        /* PDF 預覽區：增加高度並確保路徑正確 */
-        .pdf-container { width: 100%; height: 600px; border: 1px solid #ddd; margin-top: 20px; }
+        .pdf-container { width: 100%; height: 600px; border: 1px solid #ddd; margin-top: 20px; background: #fff; overflow: hidden; }
         .pdf-frame { width: 100%; height: 100%; border: none; }
-
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
-        .work-card { background: var(--card-bg); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .work-media { width: 100%; height: 220px; background: #000; }
+        .work-card { background: var(--card-bg); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: 0.3s; }
+        .work-card:hover { transform: translateY(-5px); }
+        .work-media { width: 100%; height: 220px; background: #000; overflow: hidden; }
         .work-media video, .work-media img { width: 100%; height: 100%; object-fit: cover; }
         .work-info { padding: 15px; border-top: 1px solid #f0f0f0; }
-
-        @media (max-width: 850px) {
-            header { grid-template-columns: 1fr; text-align: center; }
-            .profile-side { width: 240px; margin: 0 auto 30px; }
-        }
+        @media (max-width: 850px) { header { grid-template-columns: 1fr; text-align: center; } .profile-side { width: 240px; margin: 0 auto 30px; } }
     </style>
 </head>
 <body>
@@ -42,7 +32,7 @@
 <div class="container">
     <header>
         <div class="profile-side">
-            <img src="./profile.jpg" class="profile-pic" alt="何語菲">
+            <img src="profile.jpg" class="profile-pic" alt="何語菲" onerror="this.src='https://via.placeholder.com/280x350?text=Profile+Image'">
             <h1 class="name-ch">何 語 菲</h1>
             <p class="name-en">YU-FEI HE</p>
             <p style="font-size: 0.85rem; color: #666;">a0973577610@gmail.com</p>
@@ -69,7 +59,7 @@
 <script>
     const gallery = document.getElementById('main-gallery');
     
-    // 嚴格對應您的 Assets 清單名稱
+    // 檔名必須與 GitHub 列表完全一致 (注意點號)
     const files = [
         { name: 'video.1.mp4', tag: 'VIDEO 01' },
         { name: 'video.2.mp4', tag: 'VIDEO 02' },
@@ -83,11 +73,11 @@
     ];
 
     files.forEach(file => {
-        // 使用 ./ 強制從同級目錄抓取
-        const path = './' + file.name;
-        let mediaHtml = file.name.endsWith('.mp4')
-            ? `<video controls muted loop playsinline><source src="${path}" type="video/mp4"></video>`
-            : `<img src="${path}" alt="${file.name}">`;
+        // 加上 ./ 強化相對路徑指向
+        const filePath = './' + file.name;
+        let mediaHtml = file.name.toLowerCase().endsWith('.mp4')
+            ? `<video controls muted loop playsinline><source src="${filePath}" type="video/mp4"></video>`
+            : `<img src="${filePath}" alt="${file.name}" onerror="this.style.display='none'">`;
 
         gallery.innerHTML += `
             <div class="work-card">
@@ -99,6 +89,5 @@
         `;
     });
 </script>
-
 </body>
 </html>
