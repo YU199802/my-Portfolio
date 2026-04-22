@@ -16,7 +16,6 @@
         .name-en { font-size: 0.9rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
         .section-title { border-left: 2px solid var(--accent-color); padding-left: 15px; margin: 40px 0 20px 0; font-weight: 400; font-size: 1.2rem; }
         
-        /* 檔案下載區塊 */
         .download-box { background: #fff; padding: 20px; border-radius: 4px; border: 1px solid #ddd; margin-top: 20px; }
         .download-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
         .download-item:last-child { border-bottom: none; }
@@ -50,16 +49,8 @@
             <h3 class="section-title">DOCUMENTS | 雲端檔案下載</h3>
             <div class="download-box">
                 <div class="download-item">
-                    <span>202510 完整作品集 PDF</span>
-                    <a href="https://drive.google.com/drive/folders/1pzW2igj78yuzdL0BYdBjWInQn_RCn0H9" target="_blank" class="btn-download">查看檔案</a>
-                </div>
-                <div class="download-item">
-                    <span>活動企劃書 - 孩子無限創造力</span>
-                    <a href="https://drive.google.com/drive/folders/1pzW2igj78yuzdL0BYdBjWInQn_RCn0H9" target="_blank" class="btn-download">查看檔案</a>
-                </div>
-                <div class="download-item">
-                    <span>志工服務證明書</span>
-                    <a href="https://drive.google.com/drive/folders/1pzW2igj78yuzdL0BYdBjWInQn_RCn0H9" target="_blank" class="btn-download">查看檔案</a>
+                    <span>完整作品集 PDF / 企劃書 / 證明文件</span>
+                    <a href="https://drive.google.com/drive/folders/1pzW2igj78yuzdL0BYdBjWInQn_RCn0H9" target="_blank" class="btn-download">開啟 Google Drive</a>
                 </div>
             </div>
         </div>
@@ -72,22 +63,22 @@
 <script>
     const gallery = document.getElementById('main-gallery');
     
-    // 根據 YouTube 頻道與截圖更新的影片列表
+    // 從您的播放清單提取的正確 YouTube ID
     const youtubeVideos = [
-        { id: 'S4052U0eM9g', tag: 'Animation 1' },
-        { id: 'X5E78iY7Z2M', tag: 'Animation 2' },
-        { id: 'O3o8_WwW7G8', tag: 'Video 5' },
-        { id: 'S_iS6W8A2pI', tag: 'Video 4' },
-        { id: 'I_eQ8D9z0L4', tag: 'Video 3' },
-        { id: 'Y_pE7D6z1L2', tag: 'Video 2' },
-        { id: 'T_rE9D5z2L3', tag: 'Video 1' }
+        { id: '1nN207yL5Zg', tag: '動畫作品 01' },
+        { id: 'qY1Y_0xWn7c', tag: '動畫作品 02' },
+        { id: 'X5E78iY7Z2M', tag: '作品展示 01' },
+        { id: 'S4052U0eM9g', tag: '作品展示 02' },
+        { id: 'O3o8_WwW7G8', tag: '作品展示 03' },
+        { id: 'S_iS6W8A2pI', tag: '作品展示 04' },
+        { id: 'I_eQ8D9z0L4', tag: '作品展示 05' }
     ];
 
     youtubeVideos.forEach(vid => {
         gallery.innerHTML += `
             <div class="work-card">
                 <div class="work-media">
-                    <iframe src="https://www.youtube.com/embed/${vid.id}" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/${vid.id}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                 <div class="work-info">
                     <span style="color:var(--accent-color); font-size:0.75rem; font-weight:700;">${vid.tag}</span>
