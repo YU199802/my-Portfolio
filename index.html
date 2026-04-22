@@ -7,157 +7,123 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 顏色色系 (完全參照簡歷) */
-            --bg-color: #f5f1ea;        /* 溫暖米底色 */
-            --text-color: #3e3e3e;     /* 深灰文字 */
-            --accent-color: #cb9b66;   /* 琥珀色分隔線 */
-            --white: #ffffff;
-            --soft-shadow: rgba(0, 0, 0, 0.05);
+            --bg-color: #f5f1ea;
+            --text-color: #3e3e3e;
+            --accent-color: #cb9b66;
+            --card-bg: #ffffff;
+            --soft-shadow: rgba(0, 0, 0, 0.04);
         }
         body { 
-            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
+            font-family: 'Noto Sans TC', sans-serif; 
             background: var(--bg-color); 
             color: var(--text-color); 
-            margin: 0; padding: 0; 
-            line-height: 1.8;
-            font-weight: 300;
+            margin: 0; line-height: 1.8; font-weight: 300;
         }
-        .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 40px 20px; 
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+
+        /* 頂部簡介 */
+        header { display: grid; grid-template-columns: 260px 1fr; gap: 50px; margin-bottom: 80px; align-items: start; }
+        .profile-side { text-align: center; }
+        .profile-pic { width: 100%; border-radius: 4px; box-shadow: 0 10px 30px var(--soft-shadow); }
+        .name-ch { font-size: 1.8rem; margin: 20px 0 5px 0; letter-spacing: 5px; font-weight: 400; }
+        .name-en { font-size: 0.9rem; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        
+        /* 連結按鈕 */
+        .btn-cv { 
+            display: inline-block; margin-top: 30px; padding: 10px 25px; 
+            border: 1px solid var(--accent-color); color: var(--accent-color);
+            text-decoration: none; font-size: 0.85rem; border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .btn-cv:hover { background: var(--accent-color); color: white; }
+
+        .intro-text { font-size: 0.95rem; color: #555; text-align: justify; }
+        .section-title { 
+            border-left: 2px solid var(--accent-color); padding-left: 15px;
+            margin: 40px 0 20px 0; font-size: 1.1rem; font-weight: 400; 
         }
 
-        /* 簡歷介紹區 ( Resume Section ) */
-        .resume-section {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
+        /* 作品集網格 */
+        .portfolio-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 30px; margin-top: 40px; 
         }
-        .sidebar {
-            text-align: center;
+        .work-card { 
+            background: var(--card-bg); border-radius: 4px; overflow: hidden;
+            box-shadow: 0 4px 20px var(--soft-shadow); transition: 0.3s;
         }
-        .profile-pic {
-            width: 250px; height: 250px; 
-            object-fit: cover; 
-            border-radius: 8px; /* 依照簡歷 */
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px var(--soft-shadow);
-        }
-        .sidebar-name { font-size: 1.6rem; font-weight: 400; margin-bottom: 0; }
-        .sidebar-sub { font-size: 0.9rem; color: #777; margin-top: 5px; letter-spacing: 1px; }
-        .sidebar-contact { font-size: 0.85rem; color: #555; margin-top: 25px; }
+        .work-card:hover { transform: translateY(-8px); }
+        .work-media { width: 100%; height: 220px; background: #eee; overflow: hidden; display: block; }
+        .work-media video, .work-media img { width: 100%; height: 100%; object-fit: cover; }
+        .work-info { padding: 20px; }
+        .work-tag { color: var(--accent-color); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .work-title { font-size: 1rem; margin: 5px 0; font-weight: 400; }
 
-        .main-content {
-            font-size: 0.95rem;
-            color: #555;
-            letter-spacing: 0.5px;
+        @media (max-width: 768px) {
+            header { grid-template-columns: 1fr; text-align: center; }
+            .profile-side { margin: 0 auto; width: 200px; }
         }
-        .main-content p { margin-bottom: 20px; text-align: justify; }
-
-        /* 分隔線 */
-        .section-header {
-            border-left: 2px solid var(--accent-color);
-            padding-left: 15px;
-            margin: 40px 0 20px 0;
-            font-weight: 400;
-            color: var(--text-color);
-            letter-spacing: 1px;
-        }
-
-        /* 軟體能力圖示 */
-        .software-icons {
-            display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;
-        }
-        .icon-item img {
-            width: 35px; height: 35px; /* 照簡歷大小 */
-        }
-
-        /* 作品相簿區 ( Gallery Section ) */
-        .gallery-header {
-            text-align: center; margin: 80px 0 40px 0;
-        }
-        .gallery-hint {
-            border: 1px dashed var(--accent-color);
-            padding: 15px; border-radius: 8px; color: var(--accent-color);
-            font-size: 0.85rem; display: inline-block; margin-top: -10px;
-        }
-        .gallery { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 20px; 
-        }
-        .gallery-item {
-            position: relative; overflow: hidden; border-radius: 8px; background: white;
-            box-shadow: 0 4px 10px var(--soft-shadow);
-            transition: transform 0.3s ease;
-        }
-        .gallery-item:hover { transform: translateY(-5px); }
-        .gallery-img { 
-            width: 100%; height: 350px; object-fit: cover; border-bottom: 1px solid #eee;
-        }
-        .gallery-title { padding: 10px 15px; font-size: 0.9rem; color: #555; text-align: left; }
-
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="resume-section">
-            <div class="sidebar">
-                <img src="profile.jpg" alt="何語菲 Profile" class="profile-pic">
-                <h1 class="sidebar-name">何 語 菲</h1>
-                <p class="sidebar-sub">YU-FEI HE</p>
-                <p class="sidebar-contact">
-                    a0973577610@gmail.com
-                </p>
+<div class="container">
+    <header>
+        <div class="profile-side">
+            <img src="profile.jpg" class="profile-pic" alt="何語菲">
+            <h1 class="name-ch">何 語 菲</h1>
+            <p class="name-en">YU-FEI HE</p>
+            <a href="profile.202510.pdf" target="_blank" class="btn-cv">VIEW FULL RESUME</a>
+        </div>
+        
+        <div class="intro-text">
+            <h3 class="section-title">ABOUT ME</h3>
+            <p>我畢業於設計相關科系，對平面設計與品牌行銷有高度興趣。能獨立完成平面設計、影片剪輯與動畫製作，將創意以多媒體方式呈現。擅長運用 AI 工具提升效率，並具備社群廣告投放與數據分析實務經驗。</p>
+            
+            <h3 class="section-header">SOFTWARE SKILLS</h3>
+            <p>Ps / Ai / Ae / Pr / Office</p>
+        </div>
+    </header>
+
+    <h2 class="section-title">PORTFOLIO WORKS</h2>
+    
+    <div class="portfolio-grid">
+        <div class="work-card">
+            <div class="work-media">
+                <video autoplay muted loop playsinline>
+                    <source src="video.1.mp4" type="video/mp4">
+                </video>
             </div>
-
-            <div class="main-content">
-                <p>我畢業於設計相關科系，對平面設計與品牌行銷有高度興趣。曾在傳統製造業公司負責社群媒體與電商平台的整合與管理，涵蓋多項平台操作與活動規劃。在工作中，我不僅負責平面設計，也自行學習影片剪輯與動畫製作，能獨立完成基本影片內容，將創意多媒體方式呈現。</p>
-                <p>在策略企劃上，我能規劃、編輯並潤飾文案，運用 AI 工具輔助創意構思與提升行銷效率，將品牌理念轉化為具體行動方案。對社群媒體廣告投放與數據分析也有實務經驗，能依成效調整策略，提升曝光與互動率。</p>
-                <p>我重視團隊協作，能與跨部門同事密切配合，共同完成專案目標。同時，我持續關注流行趨勢，善於自學新技術與工具，讓自己在設計、行銷與數位媒體運用上都能保持彈性與競爭力。希望透過作品集，讓您看到我多元的專業能力與創意實力。</p>
-                
-                <h3 class="section-header">學歷</h3>
-                <p>2016.06 大明高中 廣告設計科</p>
-
-                <h3 class="section-header">軟體能力</h3>
-                <div class="software-icons">
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/3053/PNG/512/adobe_illustrator_macos_bigsur_icon_190367.png" alt="Ai"></div>
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/3053/PNG/512/adobe_photoshop_macos_bigsur_icon_190365.png" alt="Ps"></div>
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/3053/PNG/512/adobe_after_effects_macos_bigsur_icon_190368.png" alt="Ae"></div>
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/3053/PNG/512/adobe_premiere_pro_macos_bigsur_icon_190366.png" alt="Pr"></div>
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/1152/PNG/512/1486565573-microsoft-office-word_81575.png" alt="Word"></div>
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/1152/PNG/512/1486565571-microsoft-office-excel_81571.png" alt="Excel"></div>
-                    <div class="icon-item"><img src="https://cdn.icon-icons.com/icons2/1152/PNG/512/1486565570-microsoft-office-powerpoint_81578.png" alt="PPT"></div>
-                </div>
-
-                <h3 class="section-header">證照</h3>
-                <p>乙級圖文組版技術士、丙級圖文組版技術士<br>Adobe 原廠認證結業證書</p>
+            <div class="work-info">
+                <span class="work-tag">Motion Design</span>
+                <h3 class="work-title">動畫作品展示 01</h3>
             </div>
         </div>
 
-        <div class="gallery-header">
-            <h2 class="section-header">作品 showcase</h2>
-            <p class="gallery-hint">💡 將圖片命名為 pic1.jpg, pic2.jpg 上傳到 GitHub，此處會自動更新。</p>
+        <div class="work-card">
+            <div class="work-media">
+                <img src="Animation.1.gif" alt="Animation">
+            </div>
+            <div class="work-info">
+                <span class="work-tag">Animation</span>
+                <h3 class="work-title">動態貼圖 / 元素設計</h3>
+            </div>
         </div>
 
-        <div class="gallery">
-            <div class="gallery-item" onerror="this.style.display='none'">
-                <img src="pic1.jpg" class="gallery-img">
-                <p class="gallery-title">作品項目標題 1 (可在 HTML 編輯)</p>
+        <div class="work-card">
+            <div class="work-media">
+                <video autoplay muted loop playsinline>
+                    <source src="video.2.mp4" type="video/mp4">
+                </video>
             </div>
-            <div class="gallery-item" onerror="this.style.display='none'">
-                <img src="pic2.jpg" class="gallery-img">
-                <p class="gallery-title">作品項目標題 2</p>
-            </div>
-            <div class="gallery-item" onerror="this.style.display='none'">
-                <img src="pic3.jpg" class="gallery-img">
-                <p class="gallery-title">作品項目標題 3</p>
+            <div class="work-info">
+                <span class="work-tag">Video Production</span>
+                <h3 class="work-title">社群短影音企劃</h3>
             </div>
         </div>
-    </div>
+        
+        </div>
+</div>
 
 </body>
 </html>
