@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | 我的作品集</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #007aff;
+            --bg-color: #f5f5f7;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+        header {
+            background: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-img {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .card-tag {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>YU199802 作品集</h1>
+    <p>服裝設計與個人風格展示</p>
+</header>
+
+<div class="container">
+    <div class="portfolio-grid">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-tag">Fashion Design</span>
+                <h3>經典窄裙系列</h3>
+                <p>探索比例與剪裁的平衡，專注於合身輪廓的細節設計。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-tag">Outfit Coordination</span>
+                <h3>春夏搭配提案</h3>
+                <p>運用輕薄材質與短版剪裁，營造現代感十足的女性形象。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-tag">Market Analysis</span>
+                <h3>數據與美學的結合</h3>
+                <p>將精確的觀察力應用於市場趨勢分析與設計決策中。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 YU199802. Built with ❤️ on GitHub.</p>
+</footer>
+
+</body>
+</html>
